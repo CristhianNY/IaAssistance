@@ -26,7 +26,7 @@ fun App() {
                 greetingText = "Hello, ${getPlatformName()}"
                 showImage = !showImage
             }) {
-                Text(greetingText)
+                Greeting("Cristhian")
             }
             AnimatedVisibility(showImage) {
                 Image(
@@ -37,5 +37,7 @@ fun App() {
         }
     }
 }
+
+
 
 expect fun getPlatformName(): String

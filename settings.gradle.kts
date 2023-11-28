@@ -1,4 +1,4 @@
-rootProject.name = "MyApplication"
+rootProject.name = "SportFit"
 
 include(":androidApp")
 include(":shared")
