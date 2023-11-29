@@ -66,7 +66,9 @@ android {
     kotlin {
         jvmToolchain(17)
     }
+
 }
 dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview-android:1.5.4")
+    implementation(compose.material)
 }
