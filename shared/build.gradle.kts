@@ -30,6 +30,9 @@ kotlin {
                 implementation(libs.decompose)
                 implementation(libs.decompose.jetbrains)
                 implementation(libs.kotlinx.serialization.json)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
             }
         }
         val androidMain by getting {
@@ -38,6 +41,10 @@ kotlin {
                 api("androidx.appcompat:appcompat:1.6.1")
                 api("androidx.core:core-ktx:1.10.1")
                 implementation(libs.decompose)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.ktor.client.cio)
+
             }
         }
         val iosX64Main by getting
@@ -48,6 +55,9 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
+            }
         }
     }
 }
@@ -74,6 +84,6 @@ android {
 
 }
 dependencies {
-    implementation("androidx.compose.ui:ui-tooling-preview-android:1.5.4")
+    implementation(libs.androidx.ui.tooling.preview.android)
     implementation(compose.material)
 }
