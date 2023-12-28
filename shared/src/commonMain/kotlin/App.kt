@@ -7,11 +7,19 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stac
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import navigation.RootComponent
 import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.koin.compose.KoinContext
 import screens.HomeScreen
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App(rootComponent: RootComponent) {
+    KoinContext {
+        appContent(rootComponent)
+    }
+}
+
+@Composable
+fun appContent(rootComponent: RootComponent) {
     MaterialTheme {
         val childStack by rootComponent.childStack.subscribeAsState()
         Children(
@@ -25,6 +33,5 @@ fun App(rootComponent: RootComponent) {
         }
     }
 }
-
 
 expect fun getPlatformName(): String

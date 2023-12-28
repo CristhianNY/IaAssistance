@@ -1,8 +1,12 @@
 [versions]
+activityCompose = "1.8.2"
+appcompat = "1.6.1"
 compose = "1.5.4"
 compose-plugin = "1.5.10"
 agp = "8.1.4"
+coreKtx = "1.12.0"
 firebaseAuth = "1.10.4"
+kamelImage = "0.9.1"
 koinAnnotations = "1.3.0"
 kotlin = "1.9.21"
 extensionsComposeJetbrains = "2.1.4-compose-experimental"
@@ -13,12 +17,17 @@ mvvmCore = "0.16.1"
 org-jetbrains-kotlin-jvm = "1.9.10"
 koin = "3.2.0" # Versión de Koin
 ksp = "1.9.21-1.0.16"
-koinKspCompiler = "1.3.0"
+koin-compose = "1.0.4"
+
 [libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-ui-tooling-preview-android = { module = "androidx.compose.ui:ui-tooling-preview-android", version.ref = "compose" }
 decompose-jetbrains = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "extensionsComposeJetbrains" }
 firebase-auth = { module = "dev.gitlive:firebase-auth", version.ref = "firebaseAuth" }
 firebase-firestore = { module = "dev.gitlive:firebase-firestore", version.ref = "firebaseAuth" }
+kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koinAnnotations" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
@@ -31,13 +40,12 @@ ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "kto
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 mvvm-compose = { module = "dev.icerock.moko:mvvm-compose", version.ref = "mvvmCore" }
 mvvm-core = { module = "dev.icerock.moko:mvvm-core", version.ref = "mvvmCore" }
-koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koinKspCompiler" }
 
 # Dependencias de Koin
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose"}
 [plugins]
 
 androidLibrary = { id = "com.android.library", version.ref = "agp" }

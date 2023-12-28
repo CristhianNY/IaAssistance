@@ -1,11 +1,8 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
-
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
     alias(libs.plugins.kotlinSerialization)
-    id("com.google.devtools.ksp") version libs.versions.ksp.get()
 }
 
 kotlin {
@@ -24,8 +21,6 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
-
-            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -45,19 +40,23 @@ kotlin {
                 api(libs.koin.core)
                 api(libs.koin.test)
                 implementation (libs.koin.annotations)
+                implementation(libs.koin.compose)
+                implementation(project.dependencies.platform("io.insert-koin:koin-bom:3.5.3"))
+                implementation(libs.kamel.image)
 
             }
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.10.1")
+                api(libs.androidx.activity.compose)
+                api(libs.androidx.appcompat)
+                api(libs.androidx.core.ktx)
                 implementation(libs.decompose)
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.ktor.client.cio)
                 api(libs.koin.android)
+                api(libs.koin.core)
 
             }
         }
@@ -100,19 +99,5 @@ android {
 dependencies {
     implementation(libs.androidx.ui.tooling.preview.android)
     implementation(compose.material)
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
 }
 
-tasks.withType<KotlinCompile<*>>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn ("kspCommonMainKotlinMetadata")
-    }
-}
-
-afterEvaluate {
-    tasks.filter { task: Task ->
-        task.name.contains("SourcesJar", true)
-    }.forEach {
-        it.dependsOn("kspCommonMainKotlinMetadata")
-    }
-}
