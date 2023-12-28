@@ -1,8 +1,11 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
+
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("org.jetbrains.compose")
     alias(libs.plugins.kotlinSerialization)
+    id("com.google.devtools.ksp") version libs.versions.ksp.get()
 }
 
 kotlin {
@@ -21,6 +24,8 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
+
+            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -33,6 +38,14 @@ kotlin {
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.client.content.negotiation)
                 implementation(libs.ktor.serialization.kotlinx.json)
+                implementation(libs.firebase.auth)
+                implementation(libs.firebase.firestore)
+                api(libs.mvvm.core)
+                api (libs.mvvm.compose)
+                api(libs.koin.core)
+                api(libs.koin.test)
+                implementation (libs.koin.annotations)
+
             }
         }
         val androidMain by getting {
@@ -44,6 +57,7 @@ kotlin {
                 implementation(libs.ktor.client.core)
                 implementation(libs.ktor.serialization.kotlinx.json)
                 implementation(libs.ktor.client.cio)
+                api(libs.koin.android)
 
             }
         }
@@ -86,4 +100,19 @@ android {
 dependencies {
     implementation(libs.androidx.ui.tooling.preview.android)
     implementation(compose.material)
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+}
+
+tasks.withType<KotlinCompile<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn ("kspCommonMainKotlinMetadata")
+    }
+}
+
+afterEvaluate {
+    tasks.filter { task: Task ->
+        task.name.contains("SourcesJar", true)
+    }.forEach {
+        it.dependsOn("kspCommonMainKotlinMetadata")
+    }
 }

@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.application")
     id("org.jetbrains.compose")
+    id("com.google.devtools.ksp") version libs.versions.ksp.get()
 }
 
 kotlin {
@@ -38,5 +39,7 @@ android {
 
     dependencies {
         implementation(libs.decompose)
+        implementation(libs.koin.annotations)
+        ksp(libs.koin.ksp.compiler)
     }
 }

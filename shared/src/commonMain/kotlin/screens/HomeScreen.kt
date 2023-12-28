@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import data.DataSourceExampleImpl
+import data.example.ExampleDataSourceImpl
 import navigation.ScreenHomeComponent
 
 @Composable
@@ -25,7 +25,7 @@ fun HomeScreen(component: ScreenHomeComponent) {
             component.goBack()
         }) {
             Text("Go Back")
-            val dataSource = DataSourceExampleImpl()
+            val dataSource = ExampleDataSourceImpl()
             LaunchedEffect(Unit) {
                 println(dataSource.getExample())
             }

@@ -1,7 +1,7 @@
-package data
+package data.example
 
 import entity.PicturesEntityItemEntity
 
-interface DataSourceExample {
+interface ExampleDataSource {
     suspend fun getExample(): List<PicturesEntityItemEntity>
 }
